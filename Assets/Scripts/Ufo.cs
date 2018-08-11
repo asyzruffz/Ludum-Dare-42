@@ -25,4 +25,11 @@ public class Ufo : MonoBehaviour {
 	public void StopFlying () {
 		flight.SetFlightEnabled (false);
 	}
+
+	public void SpawnAnother () {
+		EnemyController eCon = transform.parent.GetComponent<EnemyController> ();
+		if (eCon) {
+			eCon.Spawn ();
+		}
+	}
 }

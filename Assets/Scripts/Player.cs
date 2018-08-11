@@ -6,17 +6,14 @@ public class Player : MonoBehaviour {
 
 	public Camera cam;
 	public Turret character;
-	public GameObject enemyPrefab;
-
 	GameController game;
 
 	void Start () {
 		game = GetComponent<GameController> ();
-		SpawnEnemies ();
 	}
 	
 	void Update () {
-		if (!game.IsStarted() || !game.IsEnded ()) {
+		if (!game.IsStarted() || game.IsEnded ()) {
 			return;
 		}
 
@@ -25,7 +22,6 @@ public class Player : MonoBehaviour {
 			RaycastHit hit;
 
 			if (Physics.Raycast (ray, out hit)) {
-				//Vector3 pos = hit.point;
 				character.SetAim (hit.transform);
 				character.Shoot ();
 			}
@@ -37,17 +33,5 @@ public class Player : MonoBehaviour {
 		pos.Normalize ();
 
 		character.GetComponent<Controller3D> ().Move (pos);
-	}
-
-	void SpawnEnemies () {
-		int num = 300;
-		for (int i = 0; i < num; i++) {
-			Invoke ("Pop", i * 0.2f);
-		}
-	}
-
-	void Pop () {
-		Vector2 xz = Random.insideUnitCircle * 4;
-		Instantiate (enemyPrefab, new Vector3 (xz.x, character.transform.position.y + 6, xz.y), Quaternion.identity, transform);
 	}
 }
