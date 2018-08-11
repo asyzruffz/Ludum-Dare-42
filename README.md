@@ -1,3 +1,3 @@
-# Game Name
+# Claustro Attack
 ## Ludum Dare 42
 ### Theme: Running Out of Space

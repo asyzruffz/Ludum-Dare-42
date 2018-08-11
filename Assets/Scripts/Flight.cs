@@ -64,8 +64,10 @@ public class Flight : MonoBehaviour {
             targetRot = Quaternion.Euler (0, transform.rotation.eulerAngles.y, 0);
             transform.rotation = Quaternion.Lerp (transform.rotation, targetRot, turningSpeed * 0.5f * Time.deltaTime);
         } else if (faceForwardMovement) {
-            targetRot = Quaternion.LookRotation (diff);
-            transform.rotation = Quaternion.Lerp (transform.rotation, targetRot, turningSpeed * Time.deltaTime);
+			if (diff.sqrMagnitude > 0) {
+				targetRot = Quaternion.LookRotation (diff);
+				transform.rotation = Quaternion.Lerp (transform.rotation, targetRot, turningSpeed * Time.deltaTime);
+			}
         }
     }
 

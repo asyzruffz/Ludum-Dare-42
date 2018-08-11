@@ -8,11 +8,18 @@ public class Player : MonoBehaviour {
 	public Turret character;
 	public GameObject enemyPrefab;
 
+	GameController game;
+
 	void Start () {
+		game = GetComponent<GameController> ();
 		SpawnEnemies ();
 	}
 	
 	void Update () {
+		if (!game.IsStarted() || !game.IsEnded ()) {
+			return;
+		}
+
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = cam.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
@@ -41,6 +48,6 @@ public class Player : MonoBehaviour {
 
 	void Pop () {
 		Vector2 xz = Random.insideUnitCircle * 4;
-		Instantiate (enemyPrefab, new Vector3 (xz.x, 6, xz.y), Quaternion.identity, transform);
+		Instantiate (enemyPrefab, new Vector3 (xz.x, character.transform.position.y + 6, xz.y), Quaternion.identity, transform);
 	}
 }

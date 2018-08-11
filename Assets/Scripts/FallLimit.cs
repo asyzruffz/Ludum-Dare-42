@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class FallLimit : MonoBehaviour {
 
-	void OnTriggerEnter (Collider other) {
-		if (other.CompareTag("Player")) {
+	bool gameEnd = false;
+
+	void OnCollisionEnter (Collision other) {
+		if (other.gameObject.CompareTag("Player")) {
 			Debug.Log ("You run out of space!");
-		} else if (other.CompareTag ("Enemy")) {
+			gameEnd = true;
+		} else if (other.gameObject.CompareTag ("Enemy")) {
 			Destroy (other.gameObject);
 		}
 	}
 
+	public bool IsGameOver () {
+		return gameEnd;
+	}
 }
