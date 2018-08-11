@@ -30,7 +30,7 @@ public class Turret : MonoBehaviour {
 
     void Facing () {
         Quaternion targetRot;
-        if (hasAim) {
+        if (hasAim && target != null) {
             targetRot = Quaternion.LookRotation (target.position - gun.position);
             gun.rotation = Quaternion.Lerp (gun.rotation, targetRot, turningSpeed * Time.deltaTime);
         } else {

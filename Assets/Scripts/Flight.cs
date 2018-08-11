@@ -9,7 +9,7 @@ public class Flight : MonoBehaviour {
     public float brakingDistance = 0.5f;
     public bool faceForwardMovement = true;
     public FlightStabilization stabilization;
-	
+
     Vector3 pos;
     Vector3 diff;
     float angle = 0;
@@ -91,6 +91,10 @@ public class Flight : MonoBehaviour {
         transform.position = pos + stableDir * stabilization.range * 0.5f;
         angle += stabilization.speed * Time.deltaTime;
     }
+
+	public Vector3 GetPos () {
+		return pos;
+	}
 
 	public void SetFlightEnabled (bool enabled) {
 		if (enabled && !flightEnabled) {

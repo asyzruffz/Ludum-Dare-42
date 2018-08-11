@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 
 	public GameObject enemyPrefab;
+	public int numAtStart = 8;
 
 	GameController game;
 	Player player;
@@ -12,7 +13,6 @@ public class EnemyController : MonoBehaviour {
 	void Start () {
 		game = GetComponent<GameController> ();
 		player = GetComponent<Player> ();
-		SpawnEnemies ();
 	}
 
 	void Update () {
@@ -21,10 +21,9 @@ public class EnemyController : MonoBehaviour {
 		}
 	}
 
-	void SpawnEnemies () {
-		int num = 8;
-		for (int i = 0; i < num; i++) {
-			Invoke ("Spawn", i * 0.2f);
+	public void SpawnEnemies () {
+		for (int i = 0; i < numAtStart; i++) {
+			Invoke ("Spawn", i * 0.6f);
 		}
 	}
 

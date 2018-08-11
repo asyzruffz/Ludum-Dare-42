@@ -32,14 +32,16 @@ public class AIState : MonoBehaviour {
     }
 
     public virtual void Enter () {
-        //Debug.Log (self.name + " enters " + stateName + " state!");
+		//string par = (self.transform.parent != null) ? self.transform.parent.name + "." : "";
+		//Debug.Log (par + self.name + " enters " + stateName + " state!");
         if (events.onEnter != null) {
             events.onEnter.Invoke ();
         }
     }
 
     public virtual void Exit () {
-        //Debug.Log (self.name + " exits " + stateName + " state!");
+		//string par = (self.transform.parent != null) ? self.transform.parent.name + "." : "";
+		//Debug.Log (par + self.name + " exits " + stateName + " state!");
         if (events.onExit != null) {
             events.onExit.Invoke ();
         }

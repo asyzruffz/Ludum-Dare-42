@@ -26,9 +26,9 @@ public class FiniteStateMachine : MonoBehaviour {
 
             if (currentState == null) {
                 currentState = stateList[0];
-            } else {
-                currentState.Enter ();
             }
+
+			currentState.Enter ();
         }
 	}
 	
