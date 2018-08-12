@@ -9,10 +9,12 @@ public class Ufo : MonoBehaviour {
 
 	Health health;
 	Flight flight;
+	AudioController aud;
 
 	void Start () {
 		health = GetComponent<Health> ();
 		flight = GetComponent<Flight> ();
+		aud = GetComponent<AudioController> ();
 	}
 	
 	void OnCollisionEnter (Collision other) {
@@ -34,6 +36,9 @@ public class Ufo : MonoBehaviour {
 	
 	public void DropBomb () {
 		Instantiate (bombPrefab, hatch.position, Quaternion.Euler(new Vector3(20, 0, 12)));
+		if (aud) {
+			aud.PlaySoundType ("BombDrop");
+		}
 	}
 
 	////////// --- AI --- //////////
@@ -66,7 +71,17 @@ public class Ufo : MonoBehaviour {
 		}
 	}
 
+	public void PlayDeathSound () {
+		if (aud) {
+			aud.PlaySoundType ("Dead");
+		}
+	}
+
 	public void PatrolUpdate () {
+		if (!GameController.Instance.IsStarted () || GameController.Instance.IsEnded ()) {
+			return;
+		}
+
 		if (timer >= patrolDelay) {
 			Vector2 xz = Random.insideUnitCircle * 4;
 			flight.MoveTo (new Vector3 (xz.x, flight.GetPos ().y, xz.y));
@@ -78,6 +93,10 @@ public class Ufo : MonoBehaviour {
 	}
 
 	public void AttackUpdate () {
+		if (!GameController.Instance.IsStarted () || GameController.Instance.IsEnded ()) {
+			return;
+		}
+
 		if (timer >= shotCooldown && !doneShot) {
 			DropBomb ();
 			doneShot = true;

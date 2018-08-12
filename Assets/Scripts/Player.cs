@@ -22,7 +22,12 @@ public class Player : MonoBehaviour {
 			RaycastHit hit;
 
 			if (Physics.Raycast (ray, out hit)) {
-				character.SetAim (hit.transform);
+				if(hit.transform.CompareTag("Wall")) {
+					character.SetAim (hit.point);
+				} else {
+					character.SetAim (hit.transform);
+				}
+
 				character.Shoot ();
 			}
 		}
