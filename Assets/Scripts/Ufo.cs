@@ -34,6 +34,12 @@ public class Ufo : MonoBehaviour {
 		}
 	}
 	
+	public void GivePlayerTime () {
+		if (GameController.Instance) {
+			GameController.Instance.GainPlayTime ();
+		}
+	}
+
 	public void DropBomb () {
 		Instantiate (bombPrefab, hatch.position, Quaternion.Euler(new Vector3(20, 0, 12)));
 		if (aud) {
