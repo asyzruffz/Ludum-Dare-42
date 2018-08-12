@@ -35,6 +35,7 @@ public class FiniteStateMachine : MonoBehaviour {
 	void Update () {
 		if(currentState) {
             currentState.StateUpdate ();
+            currentState.CheckForStateExit ();
 			ChangeState ();
 		} else {
             Debug.Log ("Current state is null!");

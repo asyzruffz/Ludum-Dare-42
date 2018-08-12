@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4553121025606172}
   - component: {fileID: 114710917426727276}
-  - component: {fileID: 114291751350020072}
-  - component: {fileID: 114895612137220558}
-  - component: {fileID: 114421503017641788}
+  - component: {fileID: 114235800771084668}
+  - component: {fileID: 114417507461750428}
+  - component: {fileID: 114846819425185814}
   m_Layer: 0
   m_Name: Pilot
   m_TagString: Untagged
@@ -377,7 +377,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &114291751350020072
+--- !u!114 &114235800771084668
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -385,7 +385,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1009069102988368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afbaa1cd39d67a846982c9756e77a2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: fc246f30c9e537e469fe5ab0cacd0a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateName: Patrol
@@ -418,25 +418,7 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     behaviours:
-      conditionStatePairs:
-      - ConditionPassed:
-          _target: {fileID: 114530703153607170}
-          _methodName: IsDead
-          _args: []
-          _dynamic: 0
-          _typeName: Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          dirty: 0
-        decisionState: Dead
-      - ConditionPassed:
-          _target: {fileID: 114678671208410722}
-          _methodName: DonePatrolling
-          _args: []
-          _dynamic: 0
-          _typeName: Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          dirty: 0
-        decisionState: Attack
+      conditionStatePairs: []
     onUpdate:
       m_PersistentCalls:
         m_Calls:
@@ -460,6 +442,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   disable: 0
   self: {fileID: 0}
+  ufo: {fileID: 114678671208410722}
 --- !u!114 &114336976711281256
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -478,7 +461,7 @@ MonoBehaviour:
   - soundType: Dead
     audios:
     - {fileID: 8300000, guid: 0503558ccdf8fec4cbf7ca30b939f313, type: 3}
---- !u!114 &114421503017641788
+--- !u!114 &114417507461750428
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -486,16 +469,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1009069102988368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afbaa1cd39d67a846982c9756e77a2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: d5e13dac216964c4ba02609544a4e686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateName: Dead
+  stateName: Attack
   events:
     onEnter:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114678671208410722}
-          m_MethodName: StopFlying
+          m_MethodName: ResetShot
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -506,7 +489,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 114678671208410722}
-          m_MethodName: SpawnAnother
+          m_MethodName: ResetTimer
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -517,18 +500,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 114678671208410722}
-          m_MethodName: PlayDeathSound
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 114678671208410722}
-          m_MethodName: GivePlayerTime
+          m_MethodName: RandomSkipAttack
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -544,7 +516,18 @@ MonoBehaviour:
       conditionStatePairs: []
     onUpdate:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 114678671208410722}
+          m_MethodName: AttackUpdate
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     onExit:
@@ -554,6 +537,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   disable: 0
   self: {fileID: 0}
+  ufo: {fileID: 114678671208410722}
 --- !u!114 &114530703153607170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -613,7 +597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: {fileID: 0}
---- !u!114 &114895612137220558
+--- !u!114 &114846819425185814
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -621,16 +605,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1009069102988368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afbaa1cd39d67a846982c9756e77a2fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 39fb028a0c1e37b479707e9c6e9e47b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stateName: Attack
+  stateName: Dead
   events:
     onEnter:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 114678671208410722}
-          m_MethodName: ResetShot
+          m_MethodName: StopFlying
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -641,7 +625,7 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 114678671208410722}
-          m_MethodName: ResetTimer
+          m_MethodName: SpawnAnother
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -652,7 +636,18 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 114678671208410722}
-          m_MethodName: RandomSkipAttack
+          m_MethodName: PlayDeathSound
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 114678671208410722}
+          m_MethodName: GivePlayerTime
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -665,39 +660,10 @@ MonoBehaviour:
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     behaviours:
-      conditionStatePairs:
-      - ConditionPassed:
-          _target: {fileID: 114530703153607170}
-          _methodName: IsDead
-          _args: []
-          _dynamic: 0
-          _typeName: Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          dirty: 0
-        decisionState: Dead
-      - ConditionPassed:
-          _target: {fileID: 114678671208410722}
-          _methodName: DoneShooting
-          _args: []
-          _dynamic: 0
-          _typeName: Condition, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          dirty: 0
-        decisionState: Patrol
+      conditionStatePairs: []
     onUpdate:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 114678671208410722}
-          m_MethodName: AttackUpdate
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
     onExit:
