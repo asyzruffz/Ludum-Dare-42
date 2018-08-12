@@ -23,6 +23,7 @@ public class GameController : Singleton<GameController> {
 	public string loseText;
 
 	AudioController aud;
+	Reaction speech;
 	bool isStarted = false;
 	bool isEnded = false;
 	bool isStucked = false;
@@ -31,6 +32,7 @@ public class GameController : Singleton<GameController> {
 	
 	void Start () {
 		aud = GetComponent<AudioController> ();
+		speech = GetComponent<Player> ().character.GetComponent<Reaction> ();
 
 		timer = initialTime;
 	}
@@ -68,14 +70,14 @@ public class GameController : Singleton<GameController> {
 				// chance time given at the start of the game
 				timer += subsequentTime;
 				beginnerChance = false;
-				Debug.Log ("Chance given");
+				speech.ReactWith (Reaction.SpeechType.ThingGetsSerious);
 			} else {
-				// You lose
 				isStucked = true;
+				//speech.ReactWith (Reaction.SpeechType.Stucked);
 			}
 		} else if (timer <= 1f) {
 			if (!beginnerChance) {
-				// Despair
+				speech.ReactWith (Reaction.SpeechType.MayStuck);
 			}
 		}
 
@@ -93,6 +95,7 @@ public class GameController : Singleton<GameController> {
 
 	public void StartGame () {
 		isStarted = true;
+		speech.ReactWith (Reaction.SpeechType.Epilogue);
 	}
 
 	public void RestartGame () {
