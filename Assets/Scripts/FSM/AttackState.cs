@@ -15,8 +15,8 @@ public class AttackState : AIState {
 	public override void CheckForStateExit () {
 		if (health.IsDead ()) {
 			machine.SetCurrentState ("Dead");
-		} else if (ufo.DonePatrolling ()) {
-			machine.SetCurrentState ("Attack");
+		} else if (ufo.DoneShooting ()) {
+			machine.SetCurrentState ("Patrol");
 		}
 	}
 }
