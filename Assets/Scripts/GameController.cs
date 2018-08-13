@@ -64,22 +64,22 @@ public class GameController : Singleton<GameController> {
 			ui.SetGameOverPanelDisplay (true);
 		}
 
-		// Countdown time
-		if (timer <= 0) {
-			if (beginnerChance) {
-				// chance time given at the start of the game
-				timer += subsequentTime;
-				beginnerChance = false;
-				speech.ReactWith (Reaction.SpeechType.ThingGetsSerious);
-			} else {
-				isStucked = true;
-				//speech.ReactWith (Reaction.SpeechType.Stucked);
-			}
-		} else if (timer <= 1f) {
-			if (!beginnerChance) {
-				speech.ReactWith (Reaction.SpeechType.MayStuck);
-			}
-		}
+        if (!isEnded) {
+            // Countdown time
+            if (timer <= 0) {
+                if (beginnerChance) {
+                    // chance time given at the start of the game
+                    timer += subsequentTime;
+                    beginnerChance = false;
+                    speech.ReactWith (Reaction.SpeechType.ThingGetsSerious);
+                } else {
+                    isStucked = true;
+                    speech.ReactWith (Reaction.SpeechType.Stucked);
+                }
+            } else if (timer <= 2f) {
+                speech.ReactWith (Reaction.SpeechType.MayStuck);
+            }
+        }
 
 		if (isStarted) {
 			timer -= Time.deltaTime;
