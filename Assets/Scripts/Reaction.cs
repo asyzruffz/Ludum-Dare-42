@@ -29,7 +29,6 @@ public class Reaction : MonoBehaviour {
 				waitTimer = 0;
 				speech.SetActive (false);
 				speechDisplayed = false;
-				//Debug.Log ("Cancel speech! " + speech.activeSelf);
 			}
 		}
 	}

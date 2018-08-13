@@ -6917,7 +6917,7 @@ MonoBehaviour:
   subsequentTime: 15
   winText: 'You ran out of space!
 
-    Finally you''re out of here.'
+    Finally, you''re out of here.'
   loseText: You were stuck in place!
 --- !u!114 &1637619338
 MonoBehaviour:

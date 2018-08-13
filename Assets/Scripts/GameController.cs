@@ -76,8 +76,10 @@ public class GameController : Singleton<GameController> {
                     isStucked = true;
                     speech.ReactWith (Reaction.SpeechType.Stucked);
                 }
-            } else if (timer <= 2f) {
-                speech.ReactWith (Reaction.SpeechType.MayStuck);
+            } else if (timer <= 3f) {
+                if (!beginnerChance) {
+                    speech.ReactWith (Reaction.SpeechType.MayStuck);
+                }
             }
         }
 
